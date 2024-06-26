@@ -9,7 +9,10 @@ import { usePermission } from '@/Composables/Permission';
 export default function Authenticated({ user, header, children}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const { hasRole, hasPermission } = usePermission();
-    
+
+    const isAdmin = hasRole('admin');
+    const isAdminOrTeacher = hasRole('admin') || hasRole('teacher');
+
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="bg-white border-b border-gray-100">
@@ -31,9 +34,14 @@ export default function Authenticated({ user, header, children}) {
                                         Admin
                                     </NavLink>
                                 ) : null} */}
-                                {hasRole('admin') && (
+                                {isAdmin && (
                                     <NavLink href={route('admin.index')} active={route().current('admin.index')}>
                                         Admin
+                                    </NavLink>
+                                )}
+                                {isAdminOrTeacher && (
+                                    <NavLink href={route('teacher.index')} active={route().current('teacher.index')}>
+                                        Teacher
                                     </NavLink>
                                 )}
                                 {/* <NavLink href={route('admin.index')} active={route().current('admin.index')}>

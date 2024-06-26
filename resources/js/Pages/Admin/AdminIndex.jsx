@@ -1,7 +1,7 @@
 import AdminLayout from '@/Layouts/AdminLayout'
 import { Head } from '@inertiajs/react';
 
-export default function Dashboard({ auth }) {
+export default function AdminIndex({ auth }) {
     return (
         <AdminLayout
             user={auth.user}

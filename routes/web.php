@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PermissonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -18,13 +19,9 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/users', [UserController::class, 'index'])->name('users.index');
-// Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
-// Route::get('/permissions', [PermissonController::class, 'index'])->name('permissions.index');
-
 Route::resource('/users', UserController::class);
-Route::resource('/roles', UserController::class);
-Route::resource('/permissions', UserController::class);
+Route::resource('/roles', RoleController::class);
+Route::resource('/permissions', PermissonController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -38,6 +35,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+});
+
+Route::middleware(['auth', 'role:teacher|admin'])->group(function () {
+    Route::get('/teacher', [TeacherController::class, 'index'])->name('teacher.index');
 });
 
 require __DIR__.'/auth.php';

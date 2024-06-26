@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\PermissionResource;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Inertia\Response;
-use Spatie\Permission\Models\Permission;
 
-class PermissonController extends Controller
+class TeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        return Inertia::render('Admin/Permissions/PermissionIndex', [
-            'permissions' => PermissionResource::collection(Permission::all())
-        ]);
+        return Inertia::render('Teacher/TeacherIndex');
     }
 
     /**
